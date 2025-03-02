@@ -6,7 +6,7 @@ public class Book {
     private int publishedYear;
     private int id;
 
-    public Book(boolean available, String author, String title, int publishedYear, int id) {
+    public Book(boolean available, String author, String title, int publishedYear) {
         this.available = available;
         this.author = author;
         this.title = title;

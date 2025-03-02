@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static Scanner scanner = new Scanner(System.in);
+    static ArrayList<User> users = new ArrayList<>();
 
     public static void main(String[] args) {
         showMenu();
@@ -32,17 +34,38 @@ public class Main {
         int item;
         do {
             System.out.println("1.User list");
-            System.out.println("2.Books management");
-            System.out.println("3.Exit");
+            System.out.println("2.Add User:");
+            System.out.println("3.Books management");
+            System.out.println("4.Exit");
             System.out.println("Enter your choice: ");
             item = scanner.nextInt();
         }
-        while (item < 1 || item > 3);
+        while (item < 1 || item > 4);
         switch (item) {
-            case 1 -> System.out.println("User list");
-            case 2 -> bookManagement();
-            case 3 -> System.exit(0);
+            case 1 -> userList();
+            case 2 -> addUser();
+            case 3 -> bookManagement();
+            case 4 -> System.exit(0);
         }
+    }
+
+    public static void addUser() {
+        System.out.println("***ADD USER***");
+        System.out.println("Enter name:");
+        String name = scanner.next();
+        System.out.println("Enter address");
+        scanner.nextLine();
+        String address = scanner.next();
+        System.out.println("Enter age:");
+        int age = scanner.nextInt();
+        System.out.println("Enter gender:");
+        String gender = scanner.next();
+        System.out.println("Enter password:");
+        String password = scanner.next();
+        System.out.println("Enter id:");
+        int id = scanner.nextInt();
+        users.add(new User(name, address, age, gender, password, id));
+        scanner.nextLine();
     }
 
     public static void bookManagement() {
@@ -62,6 +85,21 @@ public class Main {
             case 3 -> System.exit(0);
         }
     }
+    public static void userList(){
+        System.out.println("***USER LIST***");
+        if (users.isEmpty()) {
+            System.out.println("There are no users");
+            for (User user : users) {
+                System.out.println("ID"+user.getId());
+                System.out.println("Name"+user.getName());
+                System.out.println("Address"+user.getAddress());
+                System.out.println("Age"+user.getAge());
+                System.out.println("Gender"+user.getGender());
+                System.out.println("----------------");
+            }
+        }
+
+    }
 
     public static void userMenu() {
         System.out.println("***USER MENUE***");
@@ -71,7 +109,7 @@ public class Main {
             System.out.println("2.My books list");
             System.out.println("3.Borrow books");
             System.out.println("4.Return books");
-            System.out.println("5.exit");
+            System.out.println("5.Exit");
             System.out.println("Enter your choice: ");
             item = scanner.nextInt();
         }

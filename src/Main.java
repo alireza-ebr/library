@@ -51,19 +51,25 @@ public class Main {
 
     public static void addUser() {
         System.out.println("***ADD USER***");
+
         System.out.println("Enter name:");
-        String name = scanner.next();
+        String name = scanner.nextLine();
+
         System.out.println("Enter address");
-        scanner.nextLine();
         String address = scanner.next();
+
         System.out.println("Enter age:");
         int age = scanner.nextInt();
+
         System.out.println("Enter gender:");
         String gender = scanner.next();
+
         System.out.println("Enter password:");
         String password = scanner.next();
+
         System.out.println("Enter id:");
         int id = scanner.nextInt();
+
         users.add(new User(name, address, age, gender, password, id));
         scanner.nextLine();
     }
@@ -85,20 +91,21 @@ public class Main {
             case 3 -> System.exit(0);
         }
     }
-    public static void userList(){
+
+    public static void userList() {
         System.out.println("***USER LIST***");
         if (users.isEmpty()) {
             System.out.println("There are no users");
-            for (User user : users) {
-                System.out.println("ID"+user.getId());
-                System.out.println("Name"+user.getName());
-                System.out.println("Address"+user.getAddress());
-                System.out.println("Age"+user.getAge());
-                System.out.println("Gender"+user.getGender());
-                System.out.println("----------------");
-            }
+            return;
         }
-
+        for (User user : users) {
+            System.out.println("ID" + user.getId());
+            System.out.println("Name" + user.getName());
+            System.out.println("Address" + user.getAddress());
+            System.out.println("Age" + user.getAge());
+            System.out.println("Gender" + user.getGender());
+            System.out.println("----------------");
+        }
     }
 
     public static void userMenu() {

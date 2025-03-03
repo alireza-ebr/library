@@ -99,11 +99,7 @@ public class Main {
             return;
         }
         for (User user : users) {
-            System.out.println("ID" + user.getId());
-            System.out.println("Name" + user.getName());
-            System.out.println("Address" + user.getAddress());
-            System.out.println("Age" + user.getAge());
-            System.out.println("Gender" + user.getGender());
+            System.out.println(user);
             System.out.println("----------------");
         }
     }

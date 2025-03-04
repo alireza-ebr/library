@@ -53,4 +53,9 @@ public class Book {
     public void setId(int bookID) {
         this.id = bookID;
     }
+
+    @Override
+    public String toString() {
+        return "title: " + title + "\nauthor: " + author + "\npublishedYear: " + publishedYear + "\nid: " + id;
+    }
 }

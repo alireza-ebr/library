@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<User> users = new ArrayList<>();
+    static ArrayList<Book> books = new ArrayList<>();
 
     public static void main(String[] args) {
         showMenu();
@@ -86,10 +87,32 @@ public class Main {
         }
         while (item < 1 || item > 3);
         switch (item) {
-            case 1 -> System.out.println("Add books");
+            case 1 -> addBook();
             case 2 -> System.out.println("Remove books");
             case 3 -> System.exit(0);
         }
+    }
+    public static void addBook() {
+        System.out.println("***ADD BOOK***");
+
+        System.out.println("Enter title:");
+        scanner.nextLine();
+        String title = scanner.nextLine();
+
+        System.out.println("Enter author:");
+        String author = scanner.nextLine();
+
+        System.out.println("Enter publish year:");
+        int year = scanner.nextInt();
+
+        System.out.println("Is the book available?(yes or no");
+        boolean bookAvailable = scanner.next().equals("yes");
+
+        System.out.println("Enter ID:");
+        int id = scanner.nextInt();
+
+        books.add(new Book(bookAvailable,author,title,id));
+        System.out.println("Book added successfully!");
     }
 
     public static void userList() {

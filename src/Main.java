@@ -88,10 +88,33 @@ public class Main {
         while (item < 1 || item > 3);
         switch (item) {
             case 1 -> addBook();
-            case 2 -> System.out.println("Remove books");
+            case 2 -> removeBook();
             case 3 -> System.exit(0);
         }
     }
+
+    public static void removeBook() {
+        System.out.println("***REMOVE BOOK***");
+        if (books.isEmpty()) {
+            System.out.println("There are no books");
+            return;
+        }
+        System.out.println("Enter id of book you want to remove: ");
+        int bookId = scanner.nextInt();
+        Book bookToRemove = null;
+        for (Book book : books) {
+            if (book.getId() == bookId) {
+                bookToRemove = book;
+                break;
+            }
+        }
+        if (bookToRemove != null) {
+            books.remove(bookToRemove);
+            System.out.println("Book removed successfully");
+        } else
+            System.out.println("Book not found");
+    }
+
     public static void addBook() {
         System.out.println("***ADD BOOK***");
 
@@ -111,7 +134,7 @@ public class Main {
         System.out.println("Enter ID:");
         int id = scanner.nextInt();
 
-        books.add(new Book(bookAvailable,author,title,id));
+        books.add(new Book(bookAvailable, author, title, id));
         System.out.println("Book added successfully!");
     }
 

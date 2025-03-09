@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Book {
@@ -15,11 +16,9 @@ public class Book {
         this.publishedYear = publishedYear;
         this.id = baseId++;
     }
-
     public boolean isAvailable() {
         return available;
     }
-
     public void setAvailable(boolean available) {
         this.available = available;
     }

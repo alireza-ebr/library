@@ -164,11 +164,23 @@ public class Main {
         }
         while (item < 1 || item > 5);
         switch (item) {
-            case 1 -> System.out.println("Books list");
+            case 1 -> booksList();
             case 2 -> System.out.println("My books list");
             case 3 -> System.out.println("Borrow books");
             case 4 -> System.out.println("Return books");
             case 5 -> System.exit(0);
+        }
+    }
+    
+    public static void booksList() {
+        System.out.println("***BOOKS LIST***");
+        if (books.isEmpty()) {
+            System.out.println("There are no books");
+            return;
+        }
+        for (Book book : books) {
+            System.out.println(book);
+            System.out.println("-------------------");
         }
     }
 }

@@ -3,14 +3,14 @@ import java.util.Objects;
 
 public class Book {
     private static int baseId = 0;
+    private final int id;
     private boolean available;
     private String author;
     private String title;
     private int publishedYear;
-    private int id;
 
     public Book(boolean available, String author, String title, int publishedYear) {
-        this.available = available;
+        this.available = true;
         this.author = author;
         this.title = title;
         this.publishedYear = publishedYear;
@@ -51,10 +51,6 @@ public class Book {
         return id;
     }
 
-    public void setId(int bookID) {
-        this.id = bookID;
-    }
-
     @Override
     public String toString() {
         return "title: " + title + "\nauthor: " + author + "\npublishedYear: " + publishedYear + "\nid: " + id;
@@ -65,11 +61,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return available == book.available && publishedYear == book.publishedYear && id == book.id && Objects.equals(author, book.author) && Objects.equals(title, book.title);
+        return id == book.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(available, author, title, publishedYear, id);
+        return Objects.hashCode(id);
     }
 }

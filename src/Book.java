@@ -10,15 +10,17 @@ public class Book {
     private int publishedYear;
 
     public Book(boolean available, String author, String title, int publishedYear) {
-        this.available = true;
+        this.available = available;
         this.author = author;
         this.title = title;
         this.publishedYear = publishedYear;
         this.id = baseId++;
     }
+
     public boolean isAvailable() {
         return available;
     }
+
     public void setAvailable(boolean available) {
         this.available = available;
     }

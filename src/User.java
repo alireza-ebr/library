@@ -8,7 +8,7 @@ public class User {
     private String gender;
     private String password;
     private int id;
-    private ArrayList<Book> borrowedBooks;
+    private final ArrayList<Book> borrowedBooks;
 
     public User(String name, String address, int age, String gender, String password, int id) {
         this.name = name;
@@ -18,9 +18,6 @@ public class User {
         this.password = password;
         this.id = id;
         this.borrowedBooks = new ArrayList<>();
-    }
-    public void borrowBook(Book book) {
-        borrowedBooks.add(book);
     }
     public ArrayList<Book> getBorrowedBooks() {
         return borrowedBooks;

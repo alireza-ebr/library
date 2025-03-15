@@ -166,12 +166,12 @@ public class Main {
         switch (item) {
             case 1 -> booksList();
             case 2 -> System.out.println("My books list");
-            case 3 -> System.out.println("Borrow books");
+            case 3 ->  borrowBooks();
             case 4 -> System.out.println("Return books");
             case 5 -> System.exit(0);
         }
     }
-    
+
     public static void booksList() {
         System.out.println("***BOOKS LIST***");
         if (books.isEmpty()) {
@@ -183,4 +183,42 @@ public class Main {
             System.out.println("-------------------");
         }
     }
+
+    public static void borrowBooks() {
+        System.out.println("***BORROW BOOK***");
+        System.out.println("Enter your user ID");
+        int userId = scanner.nextInt();
+        User selectUser = null;
+        for (User user : users) {
+            if (user.getId() == userId) {
+                selectUser = user;
+                break;
+            }
+        }
+        if (selectUser == null) {
+            System.out.println("User not found");
+            return;
+        }
+        System.out.println("Enter the book ID to borrow: ");
+        int bookId = scanner.nextInt();
+        Book bookToBorrow = null;
+        for (Book book : books) {
+            if (book.getId() == bookId) {
+                bookToBorrow = book;
+                break;
+            }
+        }
+        if (bookToBorrow == null) {
+            System.out.println("Book not found");
+            return;
+        }
+        if (bookToBorrow.isAvailable()) {
+            selectUser.getBorrowedBooks().add(bookToBorrow);
+            bookToBorrow.setAvailable(false);
+            System.out.println("You have successfully borrowed book" + bookToBorrow.getTitle());
+        } else {
+            System.out.println("That book is not available");
+        }
+    }
 }
+

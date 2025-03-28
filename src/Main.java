@@ -128,7 +128,7 @@ public class Main {
         System.out.println("Enter publish year:");
         int year = scanner.nextInt();
 
-        System.out.println("Is the book available?(yes or no");
+        System.out.println("Is the book available?(yes or no)");
         boolean bookAvailable = scanner.next().equals("yes");
 
         System.out.println("Enter ID:");
@@ -167,7 +167,7 @@ public class Main {
             case 1 -> booksList();
             case 2 -> System.out.println("My books list");
             case 3 ->  borrowBooks();
-            case 4 -> System.out.println("Return books");
+            case 4 -> returnBook();
             case 5 -> System.exit(0);
         }
     }
@@ -219,6 +219,46 @@ public class Main {
         } else {
             System.out.println("That book is not available");
         }
+    }
+    public static void returnBook(){
+        System.out.println("***RETURN BOOK***");
+        System.out.println("Enter your user ID");
+        int userId = scanner.nextInt();
+        User selectUser = null;
+        for (User user : users) {
+            if (user.getId() == userId) {
+                selectUser = user;
+                break;
+            }
+        }
+        if (selectUser == null) {
+            System.out.println("User not found");
+            return;
+        }
+        if (selectUser.getBorrowedBooks().isEmpty()){
+            System.out.println("You have no borrowed books");
+            return;
+        }
+        System.out.println("Your borrowed books are:");
+        for (Book book : selectUser.getBorrowedBooks()) {
+            System.out.println("ID" + book.getId() + "-" + book.getTitle());
+        }
+        System.out.println("Enter the book ID to return: ");
+        int bookId = scanner.nextInt();
+        Book bookToReturn = null;
+        for (Book book : books) {
+            if (book.getId() == bookId) {
+                bookToReturn = book;
+                break;
+            }
+        }
+        if (bookToReturn == null) {
+            System.out.println("Book not found");
+            return;
+        }
+        selectUser.getBorrowedBooks().remove(bookToReturn);
+        bookToReturn.setAvailable(true);
+        System.out.println("You have successfully returned book" + bookToReturn.getTitle());
     }
 }
 

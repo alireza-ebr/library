@@ -165,7 +165,7 @@ public class Main {
         while (item < 1 || item > 5);
         switch (item) {
             case 1 -> booksList();
-            case 2 -> System.out.println("My books list");
+            case 2 ->myBookList();
             case 3 ->  borrowBooks();
             case 4 -> returnBook();
             case 5 -> System.exit(0);
@@ -259,6 +259,30 @@ public class Main {
         selectUser.getBorrowedBooks().remove(bookToReturn);
         bookToReturn.setAvailable(true);
         System.out.println("You have successfully returned book" + bookToReturn.getTitle());
+    }
+    public static void myBookList(){
+        System.out.println("***MY BOOK LIST***");
+        System.out.println("Enter your user ID");
+        int userId = scanner.nextInt();
+        User selectUser = null;
+        for (User user : users) {
+            if (user.getId() == userId) {
+                selectUser = user;
+                break;
+            }
+        }
+        if (selectUser == null) {
+            System.out.println("User not found");
+            return;
+        }
+        if (selectUser.getBorrowedBooks().isEmpty()){
+            System.out.println("You have no borrowed books");
+            return;
+        }
+        System.out.println("You borroed books:");
+        for (Book book : selectUser.getBorrowedBooks()) {
+            System.out.println("ID" + book.getId() + "-" + book.getTitle());
+        }
     }
 }
 

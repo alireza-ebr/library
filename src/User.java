@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class User {
@@ -7,6 +8,7 @@ public class User {
     private String gender;
     private String password;
     private int id;
+    private final ArrayList<Book> borrowedBooks;
 
     public User(String name, String address, int age, String gender, String password, int id) {
         this.name = name;
@@ -15,6 +17,15 @@ public class User {
         this.gender = gender;
         this.password = password;
         this.id = id;
+        this.borrowedBooks = new ArrayList<>();
+    }
+
+    public ArrayList<Book> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+
+    public void returnBook(Book book) {
+        borrowedBooks.remove(book);
     }
 
     public String getName() {
@@ -74,5 +85,7 @@ public class User {
     public int hashCode() {
         return Objects.hash(name, address, age, gender, password, id);
     }
+
 }
+
 

@@ -37,17 +37,18 @@ public class Main {
             System.out.println("1.User list");
             System.out.println("2.Add User:");
             System.out.println("3.Books management");
-            System.out.println("4.Exit");
+            System.out.println("4.Back to main menu");
             System.out.println("Enter your choice: ");
             item = scanner.nextInt();
-        }
-        while (item < 1 || item > 4);
-        switch (item) {
-            case 1 -> userList();
-            case 2 -> addUser();
-            case 3 -> bookManagement();
-            case 4 -> System.exit(0);
-        }
+            scanner.nextLine();
+            switch (item) {
+                case 1 -> userList();
+                case 2 -> addUser();
+                case 3 -> bookManagement();
+                case 4 -> showMenu();
+                default -> System.out.println("Invalid choice try again");
+            }
+        } while (item != 4);
     }
 
     public static void addUser() {
@@ -57,22 +58,25 @@ public class Main {
         String name = scanner.nextLine();
 
         System.out.println("Enter address");
-        String address = scanner.next();
+        String address = scanner.nextLine();
 
         System.out.println("Enter age:");
         int age = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Enter gender:");
         String gender = scanner.next();
+        scanner.nextLine();
 
         System.out.println("Enter password:");
         String password = scanner.next();
+        scanner.nextLine();
 
         System.out.println("Enter id:");
         int id = scanner.nextInt();
+        scanner.nextLine();
 
         users.add(new User(name, address, age, gender, password, id));
-        scanner.nextLine();
     }
 
     public static void bookManagement() {
@@ -81,16 +85,18 @@ public class Main {
         do {
             System.out.println("1.Add books");
             System.out.println("2.Remove books");
-            System.out.println("3.Exit");
+            System.out.println("3.Back to admin menu");
             System.out.println("Enter your choice: ");
             item = scanner.nextInt();
-        }
-        while (item < 1 || item > 3);
-        switch (item) {
-            case 1 -> addBook();
-            case 2 -> removeBook();
-            case 3 -> System.exit(0);
-        }
+            scanner.nextLine();
+
+            switch (item) {
+                case 1 -> addBook();
+                case 2 -> removeBook();
+                case 3 -> showMenu();
+                default -> System.out.println("Invalid choice try again");
+            }
+        } while (item != 3);
     }
 
     public static void removeBook() {
@@ -99,8 +105,15 @@ public class Main {
             System.out.println("There are no books");
             return;
         }
+
+        System.out.println("Current books in the system:");
+        for (Book book : books) {
+            System.out.println("ID: " + book.getId() + " | Title: " + book.getTitle());
+        }
+
         System.out.println("Enter id of book you want to remove: ");
         int bookId = scanner.nextInt();
+
         Book bookToRemove = null;
         for (Book book : books) {
             if (book.getId() == bookId) {
@@ -108,18 +121,21 @@ public class Main {
                 break;
             }
         }
+
         if (bookToRemove != null) {
             books.remove(bookToRemove);
             System.out.println("Book removed successfully");
-        } else
+        } else {
             System.out.println("Book not found");
+        }
     }
 
     public static void addBook() {
         System.out.println("***ADD BOOK***");
 
-        System.out.println("Enter title:");
         scanner.nextLine();
+
+        System.out.println("Enter title:");
         String title = scanner.nextLine();
 
         System.out.println("Enter author:");
@@ -127,14 +143,12 @@ public class Main {
 
         System.out.println("Enter publish year:");
         int year = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Is the book available?(yes or no)");
         boolean bookAvailable = scanner.next().equals("yes");
 
-        System.out.println("Enter ID:");
-        int id = scanner.nextInt();
-
-        books.add(new Book(bookAvailable, author, title, id));
+        books.add(new Book(bookAvailable, author, title, year));
         System.out.println("Book added successfully!");
     }
 
@@ -144,6 +158,7 @@ public class Main {
             System.out.println("There are no users");
             return;
         }
+
         for (User user : users) {
             System.out.println(user);
             System.out.println("----------------");
@@ -151,7 +166,7 @@ public class Main {
     }
 
     public static void userMenu() {
-        System.out.println("***USER MENUE***");
+        System.out.println("***USER MENU***");
         int item;
         do {
             System.out.println("1.Books list");
@@ -161,15 +176,17 @@ public class Main {
             System.out.println("5.Exit");
             System.out.println("Enter your choice: ");
             item = scanner.nextInt();
-        }
-        while (item < 1 || item > 5);
-        switch (item) {
-            case 1 -> booksList();
-            case 2 ->myBookList();
-            case 3 ->  borrowBooks();
-            case 4 -> returnBook();
-            case 5 -> System.exit(0);
-        }
+            switch (item) {
+                case 1 -> booksList();
+                case 2 -> myBookList();
+                case 3 -> borrowBooks();
+                case 4 -> returnBook();
+                case 5 -> {
+                    return;
+                }
+                default -> System.out.println("Invalid choice try again");
+            }
+        } while (true);
     }
 
     public static void booksList() {
@@ -178,6 +195,7 @@ public class Main {
             System.out.println("There are no books");
             return;
         }
+
         for (Book book : books) {
             System.out.println(book);
             System.out.println("-------------------");
@@ -186,28 +204,15 @@ public class Main {
 
     public static void borrowBooks() {
         System.out.println("***BORROW BOOK***");
-        System.out.println("Enter your user ID");
-        int userId = scanner.nextInt();
-        User selectUser = null;
-        for (User user : users) {
-            if (user.getId() == userId) {
-                selectUser = user;
-                break;
-            }
-        }
+        User selectUser = identify();
         if (selectUser == null) {
             System.out.println("User not found");
             return;
         }
+
         System.out.println("Enter the book ID to borrow: ");
         int bookId = scanner.nextInt();
-        Book bookToBorrow = null;
-        for (Book book : books) {
-            if (book.getId() == bookId) {
-                bookToBorrow = book;
-                break;
-            }
-        }
+        Book bookToBorrow = findBookById(bookId);
         if (bookToBorrow == null) {
             System.out.println("Book not found");
             return;
@@ -220,38 +225,28 @@ public class Main {
             System.out.println("That book is not available");
         }
     }
-    public static void returnBook(){
+
+    public static void returnBook() {
         System.out.println("***RETURN BOOK***");
-        System.out.println("Enter your user ID");
-        int userId = scanner.nextInt();
-        User selectUser = null;
-        for (User user : users) {
-            if (user.getId() == userId) {
-                selectUser = user;
-                break;
-            }
-        }
+        User selectUser = identify();
         if (selectUser == null) {
             System.out.println("User not found");
             return;
         }
-        if (selectUser.getBorrowedBooks().isEmpty()){
+        if (selectUser.getBorrowedBooks().isEmpty()) {
             System.out.println("You have no borrowed books");
             return;
         }
+
         System.out.println("Your borrowed books are:");
         for (Book book : selectUser.getBorrowedBooks()) {
             System.out.println("ID" + book.getId() + "-" + book.getTitle());
         }
+
         System.out.println("Enter the book ID to return: ");
         int bookId = scanner.nextInt();
-        Book bookToReturn = null;
-        for (Book book : books) {
-            if (book.getId() == bookId) {
-                bookToReturn = book;
-                break;
-            }
-        }
+        Book bookToReturn = findBookById(bookId);
+
         if (bookToReturn == null) {
             System.out.println("Book not found");
             return;
@@ -260,29 +255,43 @@ public class Main {
         bookToReturn.setAvailable(true);
         System.out.println("You have successfully returned book" + bookToReturn.getTitle());
     }
-    public static void myBookList(){
+
+    public static void myBookList() {
         System.out.println("***MY BOOK LIST***");
-        System.out.println("Enter your user ID");
-        int userId = scanner.nextInt();
-        User selectUser = null;
-        for (User user : users) {
-            if (user.getId() == userId) {
-                selectUser = user;
-                break;
-            }
-        }
+        User selectUser = identify();
         if (selectUser == null) {
             System.out.println("User not found");
             return;
         }
-        if (selectUser.getBorrowedBooks().isEmpty()){
+
+        if (selectUser.getBorrowedBooks().isEmpty()) {
             System.out.println("You have no borrowed books");
             return;
         }
-        System.out.println("You borroed books:");
+
+        System.out.println("You borrowed books:");
         for (Book book : selectUser.getBorrowedBooks()) {
             System.out.println("ID" + book.getId() + "-" + book.getTitle());
         }
+    }
+
+    public static User identify() {
+        System.out.println("Enter your user ID");
+        int userId = scanner.nextInt();
+        for (User user : users) {
+            if (user.getId() == userId) {
+                return user;
+            }
+        }
+        return null;
+    }
+    public static Book findBookById(int bookId) {
+        for (Book book : books) {
+            if (book.getId() == bookId) {
+                return book;
+            }
+        }
+        return null;
     }
 }
 

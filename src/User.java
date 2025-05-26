@@ -19,9 +19,11 @@ public class User {
         this.id = id;
         this.borrowedBooks = new ArrayList<>();
     }
+
     public ArrayList<Book> getBorrowedBooks() {
         return borrowedBooks;
     }
+
     public void returnBook(Book book) {
         borrowedBooks.remove(book);
     }
@@ -84,6 +86,6 @@ public class User {
         return Objects.hash(name, address, age, gender, password, id);
     }
 
-    }
+}
 
 
